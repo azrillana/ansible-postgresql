@@ -1,19 +1,6 @@
----
-- name: Install and set up Postgres 12 in Ubuntu 20.04
-  vars:
-    allow_world_readable_tmpfiles: true
-  tasks:
-    - name: Install required packages
-      apt:
-        name:
-          - wget
-          - python3-psycopg2
-          - acl
-        state: latest
-
-    - name: Install postgresql
-      apt:
-        name: postgresql
-        update_cache: yes
-      notify:
-        - Enable Postgresql
+- name: Install Postgres 12 in Ubuntu 20.04
+  apt:
+    name: postgresql
+    update_cache: yes
+  notify:
+    - Enable Postgresql
