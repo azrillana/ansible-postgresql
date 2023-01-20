@@ -1,0 +1,5 @@
+- name: Restart and enable Postgresql
+  ansible.builtin.systemd:
+    name: postgresql@12-main
+    enabled: true
+    state: restarted
