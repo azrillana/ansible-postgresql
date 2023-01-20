@@ -1,1 +1,1 @@
-# setup-postgres-ansible
+# setup-postgresql-ansible
