@@ -1,17 +1,17 @@
 - name: Install Required Packages
-  hosts: az-vm
+  hosts: postgresql
   become: true
   roles:
     - common
 
 - name: Setup Postgresql
-  hosts: az-vm
+  hosts: postgresql
   become: true
   roles:
     - postgresql-setup
 
 - name: Configure Postgresql
-  hosts: az-vm
+  hosts: postgresql
   become: true
   roles:
     - configuration
