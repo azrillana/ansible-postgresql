@@ -19,3 +19,20 @@
   args:
     warn: no
   notify: Restart Postgresql
+
+- name: Check if PostgreSQL is running
+  systemd:
+    name: postgresql.service
+    state: started
+  register: postgres_status
+  ignore_errors: yes
+
+- name: Change password postgres user
+  become: yes
+  become_method: sudo
+  become_user: postgres
+  postgresql_user: 
+    db: postgres
+    name: postgres
+    password: "Task@4ND4L111"  
+  when: postgres_status is success

@@ -3,4 +3,5 @@
     name: postgresql
     update_cache: yes
   notify:
-    - Enable Postgresql
+    - Restart and enable Postgresql
+
