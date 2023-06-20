@@ -1,5 +1,5 @@
 [postgresql]
-10.10.254.222 ansible_connection=ssh
-#20.212.144.22 ansible_connection=ssh
+10.10.254.134
+# 4.193.158.251 ansible_connection=ssh
 #10.10.254.246 ansible_connection=ssh
 #10.10.254.248 ansible_connection=ssh

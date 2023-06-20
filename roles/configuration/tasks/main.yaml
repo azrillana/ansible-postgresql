@@ -1,10 +1,37 @@
-- name: Ensure PostgreSQL is listening on *
+- name: Ensure Postgresql is listening on *
   lineinfile:
     dest: /etc/postgresql/12/main/postgresql.conf
-    regexp: '^listen_addresses\s*='
-    line: "listen_addresses='*'"
+    regexp: '^#listen_addresses = .*'
+    line: "listen_addresses = '*'"
+
+- name: Update max_connections in postgresql.conf
+  become: true
+  lineinfile:
+    path: /etc/postgresql/12/main/postgresql.conf
+    regexp: '^max_connections\s*='
+    line: 'max_connections = 300'
+
+- name: Change wal_level to logical
+  lineinfile:
+    dest: /etc/postgresql/12/main/postgresql.conf
+    regexp: '^#?wal_level\s*=\s*.+'
+    line: "wal_level = logical"
     state: present
   notify: Restart Postgresql
+
+- name: Change Log Timezone
+  become: true
+  lineinfile:
+    path: /etc/postgresql/12/main/postgresql.conf
+    regexp: '^log_timezone\s*='
+    line: 'log_timezone = Asia/Jakarta'
+
+- name: Change Timezone
+  become: true
+  lineinfile:
+    path: /etc/postgresql/12/main/postgresql.conf
+    regexp: '^timezone\s*='
+    line: 'timezone = Asia/Jakarta'
 
 - name: Add new configuration to "pg_hba.conf"
   blockinfile:
@@ -12,13 +39,13 @@
     block: |
       host    all             all             0.0.0.0/0                md5
       host    all             all             ::/0                     md5
-  notify: Restart Postgresql
 
 - name: Change peer identification to trust
   shell: /bin/sed -i '/^local/s/peer/trust/' /etc/postgresql/12/main/pg_hba.conf
   args:
     warn: no
   notify: Restart Postgresql
+
 
 - name: Check if PostgreSQL is running
   systemd:
