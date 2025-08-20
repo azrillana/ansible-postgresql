@@ -1,10 +1,14 @@
-- name: Install Postgres 12 in Ubuntu 20.04
-  apt:
-    name: postgresql
+- name: Install Postgres 14 in Ubuntu
+  ansible.builtin.apt:
+    name: postgresql-14
     update_cache: yes
+<<<<<<< HEAD
 
 - name: Restart and enable PostgreSQL
   ansible.builtin.systemd:
     name: postgresql 
     enabled: true
     state: restarted
+=======
+  notify: Restart PostgreSQL 14
+>>>>>>> 787bf05 (feat : update to postgresql 14)
