@@ -2,8 +2,6 @@
   apt:
     name: postgresql
     update_cache: yes
-  notify:
-    - Restart and enable Postgresql
 
 - name: Restart and enable PostgreSQL
   ansible.builtin.systemd:
