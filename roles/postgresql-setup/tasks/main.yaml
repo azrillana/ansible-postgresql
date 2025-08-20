@@ -5,3 +5,8 @@
   notify:
     - Restart and enable Postgresql
 
+- name: Restart and enable PostgreSQL
+  ansible.builtin.systemd:
+    name: postgresql 
+    enabled: true
+    state: restarted
